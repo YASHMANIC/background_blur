@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Processing Results</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 1000px; margin: 0 auto; padding: 20px; }
+        .results-container { display: flex; justify-content: space-between; margin-top: 30px; }
+        .image-box { width: 48%; text-align: center; }
+        img { max-width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px; }
+        .download-btn { 
+            display: inline-block; 
+            margin-top: 15px;
+            background: #4CAF50; 
+            color: white; 
+            padding: 10px 15px; 
+            text-decoration: none; 
+            border-radius: 4px; 
+        }
+        .download-btn:hover { background: #45a049; }
+        .new-upload { margin-top: 30px; }
+    </style>
+    <script>
+        // Hide any processing overlay that might persist
+        window.onload = function() {
+            if (window.parent.document.getElementById('processingOverlay')) {
+                window.parent.document.getElementById('processingOverlay').style.display = 'none';
+            }
+        };
+    </script>
+</head>
+<body>
+    <h1>Processing Results</h1>
+    
+    <div class="results-container">
+        <div class="image-box">
+            <h3>Original Image</h3>
+            <img src="{{ url_for('static', filename='uploads/' + input_img) }}" alt="Original Image">
+        </div>
+        
+        <div class="image-box">
+            <h3>Blurred Background</h3>
+            <img src="{{ url_for('static', filename='results/' + output_img) }}" alt="Blurred Background">
+            <br>
+            <a href="{{ url_for('download', filename=output_img) }}" class="download-btn">Download Result</a>
+        </div>
+    </div>
+    
+    <div class="new-upload">
+        <button>
+            <a href="{{ url_for('index') }}">Process Another Image</a>
+        </button>
+    </div>
+</body>
+</html>
